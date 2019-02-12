@@ -17,7 +17,11 @@ app.get('/api/genres', (req, res) => {
 
 
 //get:id
-
+app.get('/api/genres/:id', (req, res) => {
+    const genre = genres.find(g => g.id === req.body.id);
+  if (!genre) return res.status(400).send('the genre with given id is not existing');
+  res.send(genre);
+})
 
 
 //post
