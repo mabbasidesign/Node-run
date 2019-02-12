@@ -45,10 +45,40 @@ app.post('/api/genres', (req, res) => {
 
 
 //put
+app.put('/api/genres/id:', (req, res) => {
+  const genre = genres.find(g => g.id === req.body.id);
+  if (!genre) return res.status(400).send('the genre with given id is not existing');
+
+  const {error} = validateGenre(req.body);
+  if (error){
+    res.status(400).send(error.details[0].message)
+    return
+  }
+
+  genre.name = req.body.name;
+  res.send(genre);
+
+});
 
 
+//delete
+app.delete('/api/genres/:id', (req, res) => {
+  const genre = genres.find(g => g.id === req.body.id);
+  if (!genre) return res.status(400).send('the genre with given id is not existing');
 
-//post
+  const index = genres.indexOf(genre);
+  genres.splice(index, 1);
+
+  res.send(genre);
+})
+
+
+function validateGenre(genre) {
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
+  return Joi.validate(genre, schema);
+}
 
 
 const port = process.env.PORT || 5000;
