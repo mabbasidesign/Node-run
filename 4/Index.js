@@ -1,5 +1,7 @@
-var express = require('express')
-var app = express()
+const express = require('express')
+const app = express()
+
+app.use(express.json());
 
 // app.get('/',  (req, res) => {
 //   res.send('Heloo World')
@@ -34,6 +36,16 @@ app.get('/api/courses/:id', (req, res) => {
   if(!course)
     res.status(404).send('The course with the given Id was not found');
   res.send(course)
+})
+
+
+app.post('/api/courses', (req, res) => {
+  const course = {
+    id: courses.length + 1,
+    name: req.body.name
+  };
+  courses.push(course);
+  res.send(course);
 })
 
 
