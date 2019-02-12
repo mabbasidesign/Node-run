@@ -18,7 +18,7 @@ app.get('/api/genres', (req, res) => {
 
 //get:id
 app.get('/api/genres/:id', (req, res) => {
-    const genre = genres.find(g => g.id === req.body.id);
+    const genre = genres.find(g => g.id === parseInt(req.params.id));
   if (!genre) return res.status(400).send('the genre with given id is not existing');
   res.send(genre);
 })
@@ -46,8 +46,8 @@ app.post('/api/genres', (req, res) => {
 
 //put
 app.put('/api/genres/id:', (req, res) => {
-  const genre = genres.find(g => g.id === req.body.id);
-  if (!genre) return res.status(400).send('the genre with given id is not existing');
+  const genre = genres.find(g => g.id === parseInt(req.params.id));
+    if (!genre) return res.status(400).send('the genre with given id is not existing');
 
   const {error} = validateGenre(req.body);
   if (error){
@@ -61,10 +61,11 @@ app.put('/api/genres/id:', (req, res) => {
 });
 
 
+
 //delete
 app.delete('/api/genres/:id', (req, res) => {
-  const genre = genres.find(g => g.id === req.body.id);
-  if (!genre) return res.status(400).send('the genre with given id is not existing');
+  const genre = genres.find(g => g.id === parseInt(req.params.id));
+    if (!genre) return res.status(400).send('the genre with given id is not existing');
 
   const index = genres.indexOf(genre);
   genres.splice(index, 1);
