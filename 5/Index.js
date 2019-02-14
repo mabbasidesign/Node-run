@@ -1,24 +1,13 @@
-const express = require('express')
+const express = require('express');
+const logger = require('./legger');
 const app = express();
 const Joi = require('joi');
 
 app.use(express.json());
 
-// app.get('/',  (req, res) => {
-//   res.send('Heloo World')
-// })
+app.use(logger);
 
-// app.get('/api/courses', (req, res) => {
-//   res.send([1, 2, 3]);
-// })
-
-// app.get('/api/courses/:id', (req, res) => {
-//   res.send(req.params.id);
-// })
-
-// app.get('/api/courses/:year/:month', (req, res) => {
-//   res.send(req.params);
-// })
+app.use(logger);
 
 const courses = [
   {id: 1, name: 'name1'},
@@ -47,7 +36,6 @@ app.post('/api/courses', (req, res) => {
   // if (!req.body.name || req.body.name < 3){
   //   res.status(400).send('name required and should be at least 3 characters')
   // }
-
 
   const schema = {
     name: Joi.string().min(3).required()
