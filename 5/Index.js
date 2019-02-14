@@ -7,10 +7,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
 
-
+app.use(logger);
 app.use(logger);
 
-app.use(logger);
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`app: ${app.get('env')}`);
+
 
 const courses = [
   {id: 1, name: 'name1'},
